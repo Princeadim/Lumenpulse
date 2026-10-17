@@ -429,11 +429,13 @@ mod tests {
     #[test]
     fn event_version_is_never_zero() {
         assert_ne!(
-            WidgetCreatedEvent::EVENT_VERSION, 0,
+            WidgetCreatedEvent::EVENT_VERSION,
+            0,
             "EVENT_VERSION 0 is reserved for unversioned legacy events; the mapper rejects it",
         );
         assert_ne!(
-            ProjectApprovedEvent::EVENT_VERSION, 0,
+            ProjectApprovedEvent::EVENT_VERSION,
+            0,
             "EVENT_VERSION 0 is reserved for unversioned legacy events; the mapper rejects it",
         );
     }
