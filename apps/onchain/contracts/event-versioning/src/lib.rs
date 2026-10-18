@@ -167,8 +167,12 @@ mod tests {
     /// "unversioned / unknown".
     #[test]
     fn event_version_starts_at_one_not_zero() {
+        // Read the constant into a local so clippy doesn't flag this as
+        // `assertions_on_constants` (the value *is* a compile-time const,
+        // but the test is still a valid regression guard).
+        let version = WidgetCreatedEvent::EVENT_VERSION;
         assert!(
-            WidgetCreatedEvent::EVENT_VERSION >= 1,
+            version >= 1,
             "EVENT_VERSION must be >= 1; 0 is reserved for unversioned events",
         );
     }
@@ -197,8 +201,10 @@ mod tests {
     /// than the old one.  Here V1 = 1 and V2 = 2.
     #[test]
     fn version_increases_monotonically_across_schema_bumps() {
+        let v1 = WidgetCreatedEventV1::EVENT_VERSION;
+        let v2 = WidgetCreatedEventV2::EVENT_VERSION;
         assert!(
-            WidgetCreatedEventV2::EVENT_VERSION > WidgetCreatedEventV1::EVENT_VERSION,
+            v2 > v1,
             "bumped version must be greater than the previous version",
         );
     }
